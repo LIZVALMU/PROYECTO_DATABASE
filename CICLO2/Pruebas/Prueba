@@ -1,0 +1,156 @@
+/*----------------------------PRUEBAS---------------------------*/
+
+/*Alison es la administradaora de la base de datos y se creo una nueva institucion que se llama
+garavito y entran hay 10 estudiantes a esa institucion y tiene como codigo 100021493218 y queda 
+ubicada en la Autopista Norte */
+
+BEGIN 
+    PA_ADMINISTRADOR.AD_INSTITUCION(100021493218, 'Garavito', 'Autopista Norte','U');
+END;
+/
+
+/*Se crean los cursos bases de datos y programacion orientada a objetos con 
+los siguientes codigos,512,612 */
+
+BEGIN
+    PA_ADMINISTRADOR.AD_CURSO(512,'MBDA',0,60,NULL,100021493218,10);
+END;
+/
+
+BEGIN
+    PA_ADMINISTRADOR.AD_CURSO(612,'POON',0,80,NULL,100021493218,1021395445);
+END;
+/
+
+/*Se agregran los estudiantes*/
+
+BEGIN
+    PA_ADMINISTRADOR.AD_ESTUDIANTE(100093145, 'Diego Cardenas', 'Diego@gmail.com', 123456789, 'Ingenieria de Sistemas', SYSDATE, 100021493218);
+    PA_ADMINISTRADOR.AD_ESTUDIANTE(100093146, 'Alison Valderama', 'Alison@gmail.com', 645645, 'Ingenieria de Sistemas', SYSDATE, 100021493218);
+    PA_ADMINISTRADOR.AD_ESTUDIANTE(100093147, 'Cristian Lopez', 'Cristian@gmail.com', 123, 'Ingenieria de Sistemas', SYSDATE, 100021493218);
+    PA_ADMINISTRADOR.AD_ESTUDIANTE(100093148, 'Camila Torres', 'Camila@gmail.com', 46, 'Ingenieria de Sistemas', SYSDATE, 100021493218);
+    PA_ADMINISTRADOR.AD_ESTUDIANTE(100093149, 'Samuel Albarracin', 'Samuel@gmail.com', 79978, 'Ingenieria de Sistemas', SYSDATE, 100021493218);
+    PA_ADMINISTRADOR.AD_ESTUDIANTE(100093150, 'Valentina Diaz', 'Valentina@gmail.com', 7987978, 'Ingenieria de Sistemas', SYSDATE, 100021493218);
+    PA_ADMINISTRADOR.AD_ESTUDIANTE(100093151, 'Angie Gutierrez', 'Angie@gmail.com', 7897, 'Ingenieria de Sistemas', SYSDATE, 100021493218);
+    PA_ADMINISTRADOR.AD_ESTUDIANTE(100093152, 'Tatitana Munar', 'Tatitana@gmail.com', 78987987, 'Ingenieria de Sistemas', SYSDATE, 100021493218);
+    PA_ADMINISTRADOR.AD_ESTUDIANTE(100093153, 'Julian Cardenas', 'Julian@gmail.com', 7897897, 'Ingenieria de Sistemas', SYSDATE, 100021493218);
+    PA_ADMINISTRADOR.AD_ESTUDIANTE(100093154, 'Sebastian Hincapie', 'Sebastian@gmail.com', 456546, 'Ingenieria de Sistemas', SYSDATE, 100021493218);
+    PA_ADMINISTRADOR.AD_ESTUDIANTE(100093155, 'Marcela Rojas', 'Marcela@gmail.com', 1347, 'Ingenieria de Sistemas', SYSDATE, 100021493218);
+END;
+/
+
+/*Se agregran los clientesPremium*/
+BEGIN
+    PC_PREMIUM.AD_PREMIUM(100093145, 'P', TO_DATE('2025-10-10', 'YYYY-MM-DD'), 300386985, 'CALLE 87');
+    PC_PREMIUM.AD_PREMIUM(100093146, 'PE', TO_DATE('2025-09-10', 'YYYY-MM-DD'),300384985, 'Tocancipa');
+    PC_PREMIUM.AD_PREMIUM(100093147, 'P', TO_DATE('2025-11-10', 'YYYY-MM-DD'), 300388985, 'Sopo');
+    PC_PREMIUM.AD_PREMIUM(100093148, 'PE', TO_DATE('2025-05-10', 'YYYY-MM-DD'), 304716985, 'Guatavita');
+    PC_PREMIUM.AD_PREMIUM(100093149, 'P', TO_DATE('2025-10-10', 'YYYY-MM-DD'), 300384985, 'Calle 80');
+    PC_PREMIUM.AD_PREMIUM(100093150, 'PE', TO_DATE('2025-01-10', 'YYYY-MM-DD'), 300325985, 'Auto Norte');
+    PC_PREMIUM.AD_PREMIUM(100093151, 'P', TO_DATE('2025-01-10', 'YYYY-MM-DD'), 300389685, 'Calima');
+    PC_PREMIUM.AD_PREMIUM(100093152, 'PE', TO_DATE('2025-12-10','YYYY-MM-DD'), 303814985, 'Usme');
+end;
+/
+
+/* Se crean las facturas y luego factura completas*/
+
+BEGIN
+    PA_ADMINISTRADOR2.AD_FACTURA(100093145, 100000, 1,'E');
+end;
+/
+
+BEGIN
+    PA_ADMINISTRADOR2.AD_FACTURA(100093146, 150000, 1,'F');
+end;
+/
+BEGIN
+    PA_ADMINISTRADOR2.AD_FACTURA(100093145, 100000, 1,'E');
+end;
+/
+BEGIN
+    PA_ADMINISTRADOR2.AD_FACTURA_COMPLETA(P_USUARIO => 100093146, P_COSTO => 150000, P_NUMEROCUOTAS => 1,
+                                          P_TRANSACCION => 'F', P_NOMBREPROPIETARIO => 'Alison Valderrama', P_NUMEROTARJETA => '1234123412341234',
+                                          P_FECHAVENCIMIENTO => to_date('2025-01-01', 'YYYY-MM-DD'), P_CODIGODESEGURIDAD => 455, P_TIPOTARJETA => 'BD');
+end;
+/
+¨
+/* Realizamos seguimientos a estudiantes*/
+
+BEGIN
+    PA_PROFESOR2.AD_SEGUIMIENTO(P_USUARIOE => 100093147, P_PRIORIDAD => 'A', P_FECHA => SYSDATE, P_DESCRIPCION => 'Seguimiento por comportamiento');
+end;
+/
+
+BEGIN
+    PA_PROFESOR2.AD_APRENDIZAJESGRUPALES(P_IDAPRENDIZAJE => 11, P_DESCRIPCION => 'Grupo de aprendisaje Ecuaciones');
+end;
+/
+
+
+BEGIN
+    PA_PROFESOR2.AD_HORARIO(P_USUARIO => 100093147, P_FRANJAS =>
+        XMLTYPE('<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Horarios [
+ <!ELEMENT Horarios (Semana)>
+ <!ELEMENT Semana (Dia+)>
+ <!ELEMENT Dia (Nombre, Franja+)>
+ <!ELEMENT Nombre (#PCDATA)>
+ <!ELEMENT Franja (Actividad, FranjaInicio, FranjaFinal)>
+ <!ELEMENT Actividad (#PCDATA)>
+ <!ELEMENT FranjaInicio (#PCDATA)>
+ <!ELEMENT FranjaFinal (#PCDATA)>
+]>
+<Horarios>
+ <Semana>
+   <Dia>
+     <Nombre>Lunes</Nombre>
+     <Franja>
+       <Actividad>Clase de Matemáticas</Actividad>
+       <FranjaInicio>08:00</FranjaInicio>
+       <FranjaFinal>10:00</FranjaFinal>
+     </Franja>
+   </Dia>
+   <Dia>
+     <Nombre>Martes</Nombre>
+     <Franja>
+       <Actividad>Clase de Biología</Actividad>
+       <FranjaInicio>08:00</FranjaInicio>
+       <FranjaFinal>10:00</FranjaFinal>
+     </Franja>
+   </Dia>
+   <Dia>
+     <Nombre>Miércoles</Nombre>
+     <Franja>
+       <Actividad>Clase de Historia</Actividad>
+       <FranjaInicio>08:00</FranjaInicio>
+       <FranjaFinal>10:00</FranjaFinal>
+     </Franja>
+   </Dia>
+   <Dia>
+     <Nombre>Jueves</Nombre>
+     <Franja>
+       <Actividad>Clase de Física</Actividad>
+       <FranjaInicio>08:00</FranjaInicio>
+       <FranjaFinal>10:00</FranjaFinal>
+     </Franja>
+   </Dia>
+   <Dia>
+     <Nombre>Viernes</Nombre>
+     <Franja>
+       <Actividad>Clase de Química</Actividad>
+       <FranjaInicio>08:00</FranjaInicio>
+       <FranjaFinal>10:00</FranjaFinal>
+     </Franja>
+   </Dia>
+   <Dia>
+     <Nombre>Sábado</Nombre>
+     <Franja>
+       <Actividad>Clase de Educación Física</Actividad>
+       <FranjaInicio>08:00</FranjaInicio>
+       <FranjaFinal>10:00</FranjaFinal>
+     </Franja>
+   </Dia>
+ </Semana>
+</Horarios>'));
+end;
+/
