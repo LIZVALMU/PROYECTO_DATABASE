@@ -1,149 +1,148 @@
 
---ActoresI
-
 CREATE OR REPLACE PACKAGE BODY PA_ADMINISTRADOR IS
-    -- Cursos
-    PROCEDURE AD_CURSO(codigo IN NUMBER, nombre IN VARCHAR2, listaDeMatriculados IN NUMBER, duracion IN NUMBER, supercursos IN NUMBER, codigoInstitucion IN NUMBER, nidProfesor IN NUMBER) IS
+
+    PROCEDURE AD_CURSO(p_codigo IN NUMBER, p_nombre IN VARCHAR2, p_listaDeMatriculados IN NUMBER, p_duracion IN NUMBER, p_supercursos IN NUMBER, p_codigoInstitucion IN NUMBER, p_nidProfesor IN NUMBER) IS
     BEGIN
-        INSERT INTO Cursos (codigo, nombre, listaDeMatriculados, duracion, supercursos, codigoInstitucion, nidProfesor)
-        VALUES (codigo, nombre, listaDeMatriculados, duracion, supercursos, codigoInstitucion, nidProfesor);
+        PC_CURSO.AD_CURSO(p_codigo, p_nombre, p_listaDeMatriculados, p_duracion, p_supercursos, p_codigoInstitucion, p_nidProfesor);
     END AD_CURSO;
-    
-    PROCEDURE MOD_CURSO(codigo IN NUMBER, nombre IN VARCHAR2, listaDeMatriculados IN NUMBER, duracion IN NUMBER, supercursos IN NUMBER, codigoInstitucion IN NUMBER, nidProfesor IN NUMBER) IS
+
+    PROCEDURE MOD_CURSO(p_codigo IN NUMBER, p_nombre IN VARCHAR2, p_listaDeMatriculados IN NUMBER, p_duracion IN NUMBER, p_supercursos IN NUMBER, p_codigoInstitucion IN NUMBER, p_nidProfesor IN NUMBER) IS
     BEGIN
-        UPDATE Cursos
-        SET nombre = nombre, listaDeMatriculados = listaDeMatriculados, duracion = duracion, supercursos = supercursos, codigoInstitucion = codigoInstitucion, nidProfesor = nidProfesor
-        WHERE codigo = codigo;
+        PC_CURSO.MOD_CURSO(p_codigo, p_nombre, p_listaDeMatriculados, p_duracion, p_supercursos, p_codigoInstitucion, p_nidProfesor);
     END MOD_CURSO;
-    
-    PROCEDURE EL_CURSO(codigo IN NUMBER) IS
+
+    PROCEDURE EL_CURSO(p_codigo IN NUMBER) IS
     BEGIN
-        DELETE FROM Cursos WHERE codigo = codigo;
+        PC_CURSO.EL_CURSO(p_codigo);
     END EL_CURSO;
-    
-    -- Profesores
-    PROCEDURE AD_PROFESOR(nid IN NUMBER, nombre IN VARCHAR2, telefono IN NUMBER, profesion IN VARCHAR2) IS
+
+    PROCEDURE AD_PROFESOR(p_nid IN NUMBER, p_nombre IN VARCHAR2, p_telefono IN NUMBER, p_profesion IN VARCHAR2) IS
     BEGIN
-        INSERT INTO Profesores (nid, nombre, telefono, profesion)
-        VALUES (nid, nombre, telefono, profesion);
+        PC_PROFESOR.AD_PROFESOR(p_nid, p_nombre, p_telefono, p_profesion);
     END AD_PROFESOR;
-    
-    PROCEDURE MOD_PROFESOR(nid IN NUMBER, nombre IN VARCHAR2, telefono IN NUMBER, profesion IN VARCHAR2) IS
+
+    PROCEDURE MOD_PROFESOR(p_nid IN NUMBER, p_nombre IN VARCHAR2, p_telefono IN NUMBER, p_profesion IN VARCHAR2) IS
     BEGIN
-        UPDATE Profesores
-        SET nombre = nombre, telefono = telefono, profesion = profesion
-        WHERE nid = nid;
+        PC_PROFESOR.MOD_PROFESOR(p_nid, p_nombre, p_telefono, p_profesion);
     END MOD_PROFESOR;
-    
-    PROCEDURE EL_PROFESOR(nid IN NUMBER) IS
+
+    PROCEDURE EL_PROFESOR(p_nid IN NUMBER) IS
     BEGIN
-        DELETE FROM Profesores WHERE nid = nid;
+        PC_PROFESOR.EL_PROFESOR(p_nid);
     END EL_PROFESOR;
-    
-    -- Estudiantes
-    PROCEDURE AD_ESTUDIANTE(usuario IN NUMBER, nombre IN VARCHAR2, correo IN VARCHAR2, contrasena IN NUMBER, programa IN VARCHAR2, registro IN DATE, codigoInstitucion IN NUMBER) IS
+
+    PROCEDURE AD_ESTUDIANTE(p_usuario IN NUMBER, p_nombre IN VARCHAR2, p_correo IN VARCHAR2, p_contrasena IN NUMBER, p_programa IN VARCHAR2, p_registro IN DATE, p_codigoInstitucion IN NUMBER) IS
     BEGIN
-        INSERT INTO Estudiantes (usuario, nombre, correo, contrasena, programa, registro, codigoInstitucion)
-        VALUES (usuario, nombre, correo, contrasena, programa, registro, codigoInstitucion);
+        PC_ESTUDIANTE.AD_ESTUDIANTE(p_usuario, p_nombre, p_correo, p_contrasena, p_programa, p_registro, p_codigoInstitucion);
     END AD_ESTUDIANTE;
-    
-    PROCEDURE MOD_ESTUDIANTE(usuario IN NUMBER, nombre IN VARCHAR2, correo IN VARCHAR2, contrasena IN NUMBER, programa IN VARCHAR2, registro IN DATE, codigoInstitucion IN NUMBER) IS
+
+    PROCEDURE MOD_ESTUDIANTE(p_usuario IN NUMBER, p_nombre IN VARCHAR2, p_correo IN VARCHAR2, p_contrasena IN NUMBER, p_programa IN VARCHAR2, p_registro IN DATE, p_codigoInstitucion IN NUMBER) IS
     BEGIN
-        UPDATE Estudiantes
-        SET nombre = nombre, correo = correo, contrasena = contrasena, programa = programa, registro = registro, codigoInstitucion = codigoInstitucion
-        WHERE usuario = usuario;
+        PC_ESTUDIANTE.MOD_ESTUDIANTE(p_usuario, p_nombre, p_correo, p_contrasena, p_programa, p_registro, p_codigoInstitucion);
     END MOD_ESTUDIANTE;
-    
-    PROCEDURE EL_ESTUDIANTE(usuario IN NUMBER) IS
+
+    PROCEDURE EL_ESTUDIANTE(p_usuario IN NUMBER) IS
     BEGIN
-        DELETE FROM Estudiantes WHERE usuario = usuario;
+        PC_ESTUDIANTE.EL_ESTUDIANTE(p_usuario);
     END EL_ESTUDIANTE;
-    
-    -- Instituciones
-    PROCEDURE AD_INSTITUCION(codigo IN NUMBER, nombre IN VARCHAR2, direccion IN VARCHAR2, tipo IN CHAR) IS
+
+    PROCEDURE AD_INSTITUCION(p_codigo IN NUMBER, p_nombre IN VARCHAR2, p_direccion IN VARCHAR2, p_tipo IN CHAR) IS
     BEGIN
-        INSERT INTO Instituciones (codigo, nombre, direccion, tipo)
-        VALUES (codigo, nombre, direccion, tipo);
+        PC_INSTITUCION.AD_INSTITUCION(p_codigo, p_nombre, p_direccion, p_tipo);
     END AD_INSTITUCION;
-    
-    PROCEDURE MOD_INSTITUCION(codigo IN NUMBER, nombre IN VARCHAR2, direccion IN VARCHAR2, tipo IN CHAR) IS
+
+    PROCEDURE MOD_INSTITUCION(p_codigo IN NUMBER, p_nombre IN VARCHAR2, p_direccion IN VARCHAR2, p_tipo IN CHAR) IS
     BEGIN
-        UPDATE Instituciones
-        SET nombre = nombre, direccion = direccion, tipo = tipo
-        WHERE codigo = codigo;
+        PC_INSTITUCION.MOD_INSTITUCION(p_codigo, p_nombre, p_direccion, p_tipo);
     END MOD_INSTITUCION;
-    
-    PROCEDURE EL_INSTITUCION(codigo IN NUMBER) IS
+
+    PROCEDURE EL_INSTITUCION(p_codigo IN NUMBER) IS
     BEGIN
-        DELETE FROM Instituciones WHERE codigo = codigo;
+        PC_INSTITUCION.EL_INSTITUCION(p_codigo);
     END EL_INSTITUCION;
 END PA_ADMINISTRADOR;
 /
 
 CREATE OR REPLACE PACKAGE BODY PA_PROFESOR IS
-    -- Cursos
-    FUNCTION CO_CURSO(codigo IN NUMBER) RETURN SYS_REFCURSOR IS
-        cursorCursos SYS_REFCURSOR;
+
+    FUNCTION CO_CURSO(p_codigo IN NUMBER) RETURN SYS_REFCURSOR IS
     BEGIN
-        OPEN cursorCursos FOR SELECT * FROM Cursos WHERE codigo = codigo;
-        RETURN cursorCursos;
+        RETURN PC_CURSO.CO_CURSO(p_codigo);
     END CO_CURSO;
-    
-    -- Recursos Adicionales
-    PROCEDURE AD_RECURSO(idRecursos IN NUMBER, tipo IN CHAR, fechaPublicacion IN DATE, tema IN VARCHAR2, notasDeClase IN VARCHAR2, codigoCursos IN NUMBER) IS
+
+    PROCEDURE AD_RECURSO(p_idRecursos IN NUMBER, p_tipo IN CHAR, p_fechaPublicacion IN DATE, p_tema IN VARCHAR2, p_notasDeClase IN VARCHAR2, p_codigoCursos IN NUMBER) IS
     BEGIN
-        INSERT INTO RecursosAdicionales (idRecursos, tipo, fechaPublicacion, tema, notasDeClase, codigoCursos)
-        VALUES (idRecursos, tipo, fechaPublicacion, tema, notasDeClase, codigoCursos);
+        PC_RECURSO.AD_RECURSO(p_idRecursos, p_tipo, p_fechaPublicacion, p_tema, p_notasDeClase, p_codigoCursos);
     END AD_RECURSO;
-    
-    PROCEDURE MOD_RECURSO(idRecursos IN NUMBER, tipo IN CHAR, fechaPublicacion IN DATE, tema IN VARCHAR2, notasDeClase IN VARCHAR2, codigoCursos IN NUMBER) IS
+
+    PROCEDURE MOD_RECURSO(p_idRecursos IN NUMBER, p_tipo IN CHAR, p_fechaPublicacion IN DATE, p_tema IN VARCHAR2, p_notasDeClase IN VARCHAR2, p_codigoCursos IN NUMBER) IS
     BEGIN
-        UPDATE RecursosAdicionales
-        SET tipo = tipo, fechaPublicacion = fechaPublicacion, tema = tema, notasDeClase = notasDeClase, codigoCursos = codigoCursos
-        WHERE idRecursos = idRecursos;
+        PC_RECURSO.MOD_RECURSO(p_idRecursos, p_tipo, p_fechaPublicacion, p_tema, p_notasDeClase, p_codigoCursos);
     END MOD_RECURSO;
-    
-    PROCEDURE EL_RECURSO(idRecursos IN NUMBER) IS
+
+    PROCEDURE EL_RECURSO(p_idRecursos IN NUMBER) IS
     BEGIN
-        DELETE FROM RecursosAdicionales WHERE idRecursos = idRecursos;
+        PC_RECURSO.EL_RECURSO(p_idRecursos);
     END EL_RECURSO;
-    
-    -- Tareas
-    PROCEDURE AD_TAREA(idTarea IN NUMBER, nombre IN VARCHAR2, descripcion IN VARCHAR2, fechaDeAsignacion IN DATE, fechaDeVencimiento IN DATE, estado IN CHAR, codigoCurso IN NUMBER) IS
+
+    PROCEDURE AD_TAREA(p_idTarea IN NUMBER, p_nombre IN VARCHAR2, p_descripcion IN VARCHAR2, p_fechaDeAsignacion IN DATE, p_fechaDeVencimiento IN DATE, p_estado IN CHAR, p_codigoCurso IN NUMBER) IS
     BEGIN
-        INSERT INTO Tareas (idTarea, nombre, descripcion, fechaDeAsignacion, fechaDeVencimiento, estado, codigoCurso)
-        VALUES (idTarea, nombre, descripcion, fechaDeAsignacion, fechaDeVencimiento, estado, codigoCurso);
+        PC_TAREA.AD_TAREA(p_idTarea, p_nombre, p_descripcion, p_fechaDeAsignacion, p_fechaDeVencimiento, p_estado, p_codigoCurso);
     END AD_TAREA;
-    
-    PROCEDURE MOD_TAREA(idTarea IN NUMBER, nombre IN VARCHAR2, descripcion IN VARCHAR2, fechaDeAsignacion IN DATE, fechaDeVencimiento IN DATE, estado IN CHAR, codigoCurso IN NUMBER) IS
+
+    PROCEDURE MOD_TAREA(p_idTarea IN NUMBER, p_nombre IN VARCHAR2, p_descripcion IN VARCHAR2, p_fechaDeAsignacion IN DATE, p_fechaDeVencimiento IN DATE, p_estado IN CHAR, p_codigoCurso IN NUMBER) IS
     BEGIN
-        UPDATE Tareas
-        SET nombre = nombre, descripcion = descripcion, fechaDeAsignacion = fechaDeAsignacion, fechaDeVencimiento = fechaDeVencimiento, estado = estado, codigoCurso = codigoCurso
-        WHERE idTarea = idTarea;
+        PC_TAREA.MOD_TAREA(p_idTarea, p_nombre, p_descripcion, p_fechaDeAsignacion, p_fechaDeVencimiento, p_estado, p_codigoCurso);
     END MOD_TAREA;
-    
-    PROCEDURE EL_TAREA(idTarea IN NUMBER) IS
+
+    PROCEDURE EL_TAREA(p_idTarea IN NUMBER) IS
     BEGIN
-        DELETE FROM Tareas WHERE idTarea = idTarea;
+        PC_TAREA.EL_TAREA(p_idTarea);
     END EL_TAREA;
-    
-    -- Calificaciones
-    PROCEDURE AD_CALIFICACION(idTarea IN NUMBER, puntaje IN NUMBER, fecha IN DATE, comentario IN VARCHAR2, estudiante IN NUMBER) IS
+
+    PROCEDURE AD_CALIFICACION(p_idTarea IN NUMBER, p_puntaje IN NUMBER, p_fecha IN DATE, p_comentario IN VARCHAR2, p_estudiante IN NUMBER) IS
     BEGIN
-        INSERT INTO calificaciones (idTarea, puntaje, fecha, comentario, estudiante)
-        VALUES (idTarea, puntaje, fecha, comentario, estudiante);
+        PC_CALIFICACION.AD_CALIFICACION(p_idTarea, p_puntaje, p_fecha, p_comentario, p_estudiante);
     END AD_CALIFICACION;
-    
-    PROCEDURE MOD_CALIFICACION(idTarea IN NUMBER, puntaje IN NUMBER, fecha IN DATE, comentario IN VARCHAR2, estudiante IN NUMBER) IS
+
+    PROCEDURE MOD_CALIFICACION (p_idTarea IN NUMBER, p_puntaje IN NUMBER, p_fecha IN DATE, p_comentario IN VARCHAR2, p_estudiante IN NUMBER) IS
     BEGIN
-        UPDATE calificaciones
-        SET puntaje = puntaje, fecha = fecha, comentario = comentario, estudiante = estudiante
-        WHERE idTarea = idTarea;
+        PC_CALIFICACION.MOD_CALIFICACION(p_idTarea, p_puntaje, p_fecha, p_comentario);
     END MOD_CALIFICACION;
-    
-    PROCEDURE EL_CALIFICACION(idTarea IN NUMBER) IS
+
+    PROCEDURE EL_CALIFICACION(p_idTarea IN NUMBER) IS
     BEGIN
-        DELETE FROM calificaciones WHERE idTarea = idTarea;
+        PC_CALIFICACION.EL_CALIFICACION(p_idTarea, 1);
     END EL_CALIFICACION;
 END PA_PROFESOR;
+/
+
+CREATE OR REPLACE PACKAGE BODY PA_ESTUDIANTE IS
+
+    FUNCTION CO_TAREAS(p_usuario IN NUMBER) RETURN SYS_REFCURSOR IS v_cursor SYS_REFCURSOR;
+    BEGIN
+        v_cursor := PC_TAREA.CO_TAREA(p_usuario);
+    END CO_TAREAS;
+
+    FUNCTION CO_CURSOS(p_usuario IN NUMBER) RETURN SYS_REFCURSOR IS v_cursor SYS_REFCURSOR;
+    BEGIN
+        v_cursor := PC_CURSO.CO_CURSO(p_usuario);
+    END CO_CURSOS;
+
+    FUNCTION CO_PROFESORES(p_codigoCurso IN NUMBER) RETURN SYS_REFCURSOR IS v_cursor SYS_REFCURSOR;
+    BEGIN
+        v_cursor := PC_PROFESOR.CO_PROFESOR(p_codigoCurso);
+    END CO_PROFESORES;
+
+    FUNCTION CO_RECURSOS(p_codigoCurso IN NUMBER) RETURN SYS_REFCURSOR IS v_cursor SYS_REFCURSOR;
+    BEGIN
+        v_cursor := PC_RECURSO.CO_RECURSO(p_codigoCurso);
+    END CO_RECURSOS;
+
+    FUNCTION CO_CALIFICACIONES(p_usuario IN NUMBER, p_codigoCurso IN NUMBER) RETURN SYS_REFCURSOR IS v_cursor SYS_REFCURSOR;
+    BEGIN
+        v_cursor := PC_CALIFICACION.CO_CALIFICACION(p_usuario, p_codigoCurso);
+    END CO_CALIFICACIONES;
+
+END PA_ESTUDIANTE;
 /

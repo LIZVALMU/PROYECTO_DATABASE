@@ -1,0 +1,56 @@
+
+--Seguridad
+
+-- Crear roles
+CREATE ROLE Jefe;
+
+-- Otorgar permisos
+GRANT EXECUTE ON PA_ADMINISTRADOR TO Jefe;
+
+-- SeguridadOK
+BEGIN
+    PA_ADMINISTRADOR.AD_PROFESOR(4567, 'Juan Perez', 12345678, 'Matemático');
+END;
+/
+
+BEGIN
+    PA_ADMINISTRADOR.AD_CURSO(104, 'Matemáticas', 30, 90, NULL, 78839347640718, 4567);
+END;
+/
+SELECT * FROM INSTITUCIONES;
+SELECT * FROM CURSOS;
+BEGIN
+    PA_ADMINISTRADOR.AD_ESTUDIANTE(2021001, 'Maria Gomez', 'maria@example.com', 123456, 'Ingeniería', TO_DATE('2022-01-01', 'YYYY-MM-DD'), 1234);
+END;
+/
+SELECT * FROM Estudiantes;
+
+BEGIN
+    PA_ADMINISTRADOR.AD_INSTITUCION(2345, 'Universidad XA', 'Calle Principal #123', 'U');
+END;
+/
+
+-- Profesor
+
+-- Crear roles
+CREATE ROLE Profesor;
+
+-- Otorgar permisos
+GRANT EXECUTE ON PA_PROFESOR TO Profesor;
+
+-- SeguridadOK
+BEGIN
+    PA_PROFESOR.AD_RECURSO(101, 'A', TO_DATE('2024-05-19', 'YYYY-MM-DD'), 'Tema 1', 'Notas de clase', 104);
+END;
+/
+SELECT * FROM RECURSOSADICIONALES;
+SELECT * FROM TAREAS;
+BEGIN
+    PA_PROFESOR.AD_TAREA(201, 'Tarea 1', 'Descripción de la tarea', TO_DATE('2024-05-19', 'YYYY-MM-DD'), TO_DATE('2024-05-26', 'YYYY-MM-DD'), 'P', 104);
+END;
+/
+BEGIN
+    PA_PROFESOR.AD_CALIFICACION(201, 90, TO_DATE('2024-05-26', 'YYYY-MM-DD'), 'Buen trabajo', 2021001);
+END;
+/
+

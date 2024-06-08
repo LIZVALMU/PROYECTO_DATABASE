@@ -1,4 +1,3 @@
-
 /*------------------------------Paquete para la tabla Instituciones------------------------------------------------*/
 
 CREATE OR REPLACE PACKAGE PC_INSTITUCION IS 
@@ -8,6 +7,7 @@ CREATE OR REPLACE PACKAGE PC_INSTITUCION IS
     FUNCTION CO_INSTITUCION(Xcodigo IN NUMBER) RETURN SYS_REFCURSOR;
 END PC_INSTITUCION;
 /
+
 
 /*------------------------------Paquete para la tabla Estudiantes------------------------------------------------*/
 
@@ -19,6 +19,7 @@ CREATE OR REPLACE PACKAGE PC_ESTUDIANTE IS
 END PC_ESTUDIANTE;
 /
 
+
 /*------------------------------Paquete para la tabla ClientesPremium------------------------------------------------*/
 
 CREATE OR REPLACE PACKAGE PC_PREMIUM IS 
@@ -29,9 +30,10 @@ CREATE OR REPLACE PACKAGE PC_PREMIUM IS
 END PC_PREMIUM;
 /
 
+
 /*------------------------------Paquete para la tabla ClientesGratuitos------------------------------------------------*/
 
-CREATE OR REPLACE PACKAGE PC_GRATUITO IS 
+CREATE OR REPLACE PACKAGE PC_GRATUITO IS
     PROCEDURE AD_GRATUITO(XusuarioE IN NUMBER, XcorreoTemporal IN VARCHAR2);
     PROCEDURE EL_GRATUITO(XusuarioE IN NUMBER);
     FUNCTION CO_GRATUITO(XusuarioE IN NUMBER) RETURN SYS_REFCURSOR;
@@ -50,17 +52,17 @@ END PC_CURSO;
 /
 
 
-/*------------------------------Paquete para la tabla EstudiantesCursos------------------------------------------------*/
+/*-----------------------------Paquete para la tabla EstudiantesCursos-----------------------------------------------*/
 
-CREATE OR REPLACE PACKAGE PC_ESTCURSO IS 
+
+CREATE OR REPLACE PACKAGE PC_ESTCURSO IS
     PROCEDURE AD_ESTCURSO(Xusuario IN NUMBER, XcodigoCurso IN NUMBER);
-    PROCEDURE EL_ESTCURSO(Xusuario IN NUMBER,XcodigoCurso IN NUMBER);
-    FUNCTION CO_ESTCURSO(XcodigoCurso IN NUMBER) RETURN SYS_REFCURSOR;
+    PROCEDURE EL_ESTCURSO(Xusuario IN NUMBER);
+    FUNCTION CO_ESTCURSO(Xusuario IN NUMBER) RETURN SYS_REFCURSOR;
 END PC_ESTCURSO;
 /
 
-
-/*------------------------------Paquete para la tabla Profesores------------------------------------------------*/
+/*-----------------------------Paquete para la tabla Profesores-----------------------------------------------*/
 
 CREATE OR REPLACE PACKAGE PC_PROFESOR IS 
     PROCEDURE AD_PROFESOR(Xnid IN NUMBER, Xnombre IN VARCHAR2, Xtelefono IN NUMBER, Xprofesion IN VARCHAR2);
@@ -71,7 +73,7 @@ END PC_PROFESOR;
 /
 
 
-/*------------------------------Paquete para la tabla RecursosAdicionales------------------------------------------------*/
+/*-----------------------------Paquete para la tabla RecursosAdicionales-----------------------------------------------*/
 
 CREATE OR REPLACE PACKAGE PC_RECURSO IS 
     PROCEDURE AD_RECURSO(XidRecursos IN NUMBER, Xtipo IN CHAR, XfechaPublicacion IN DATE, Xtema IN VARCHAR2, XnotasDeClase IN VARCHAR2, XcodigoCursos IN NUMBER);
@@ -82,7 +84,7 @@ END PC_RECURSO;
 /
 
 
-/*------------------------------Paquete para la tabla Tareas------------------------------------------------*/
+/*-----------------------------Paquete para la tabla Tareas-----------------------------------------------*/
 
 CREATE OR REPLACE PACKAGE PC_TAREA IS 
     PROCEDURE AD_TAREA(XidTarea IN NUMBER, Xnombre IN VARCHAR2, Xdescripcion IN VARCHAR2, XfechaDeAsignacion IN DATE, XfechaDeVencimiento IN DATE, Xestado IN CHAR, XcodigoCurso IN NUMBER);
@@ -92,11 +94,12 @@ CREATE OR REPLACE PACKAGE PC_TAREA IS
 END PC_TAREA;
 /
 
-/*------------------------------Paquete para la tabla calificaciones------------------------------------------------*/
+
+/*-----------------------------Paquete para la tabla calificaciones-----------------------------------------------*/
 
 CREATE OR REPLACE PACKAGE PC_CALIFICACION IS 
     PROCEDURE AD_CALIFICACION(XidTarea IN NUMBER, Xpuntaje IN NUMBER, Xfecha IN DATE, Xcomentario IN VARCHAR2, Xestudiante IN NUMBER);
-    PROCEDURE MOD_CALIFICACION(XidTarea IN NUMBER, Xpuntaje IN NUMBER, Xfecha IN DATE, Xcomentario IN VARCHAR2, Xestudiante IN NUMBER);
+    PROCEDURE MOD_CALIFICACION(XidTarea IN NUMBER, Xpuntaje IN NUMBER, Xfecha IN DATE, Xcomentario IN VARCHAR2);
     PROCEDURE EL_CALIFICACION(XidTarea IN NUMBER, Xestudiante IN NUMBER);
     FUNCTION CO_CALIFICACION(XidTarea IN NUMBER, Xestudiante IN NUMBER) RETURN SYS_REFCURSOR;
 END PC_CALIFICACION;

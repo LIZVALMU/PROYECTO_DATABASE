@@ -11,7 +11,7 @@ Alison se inscribe en el curso de base de datos.*/
 BEGIN PA_ADMINISTRADOR.AD_ESTUDIANTE(2021001, 'Alison Valderrama', 'alisvalderrama@gmail.com', 123456, 'Ingeniería de sistemas', TO_DATE('2022-01-01', 'YYYY-MM-DD'), 1234);
 
 -- Asignación al curso
-INSERT INTO EstudiantesCursos (usuario, codigoCurso) VALUES(2021001,101);
+INSERT INTO EstudiantesCursos (usuario, codigoCurso) VALUES(2021001,110);
 
 ---2Consulta de Tareas
 --Alison quiere consultar las tareas asignadas en el curso de bases de datos
@@ -30,7 +30,7 @@ END;
 DECLARE
     CO_Calificaciones SYS_REFCURSOR;
 BEGIN
-    CO_Calificaciones := PA_ESTUDIANTE.CO_CALIFICACIONES(2021001, 101);
+    CO_Calificaciones := PA_ESTUDIANTE.CO_CALIFICACIONES(2021001, 110);
     DBMS_SQL.RETURN_RESULT(CO_Calificaciones);
 END;
 /
@@ -43,7 +43,7 @@ Pasos
 --El administrador agrega a Catalina Al sistema*/
 
 BEGIN 
-	PA_ADMINISTRADOR.AD_PROFESOR(1101, "Catalina Hernandez", 3006816874, "Docente Matematicas")
+	PA_ADMINISTRADOR.AD_PROFESOR(1101, "Catalina Hernandez", 3006816874, 'Docente Matematicas')
 END;
 /
 

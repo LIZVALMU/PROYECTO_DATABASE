@@ -1,12 +1,6 @@
-
 -- Crear Institución
 CREATE OR REPLACE PACKAGE BODY PC_INSTITUCION AS
-    PROCEDURE AD_INSTITUCION(
-        Xcodigo IN NUMBER,
-        Xnombre IN VARCHAR2,
-        Xdireccion IN VARCHAR2,
-        Xtipo IN CHAR
-    ) IS
+    PROCEDURE AD_INSTITUCION(Xcodigo IN NUMBER, Xnombre IN VARCHAR2, Xdireccion IN VARCHAR2, Xtipo IN CHAR) IS
     BEGIN
         INSERT INTO Instituciones (codigo, nombre, direccion, tipo)
         VALUES (Xcodigo, Xnombre, Xdireccion, Xtipo);
@@ -16,7 +10,6 @@ CREATE OR REPLACE PACKAGE BODY PC_INSTITUCION AS
             ROLLBACK;
             raise_application_error(-20201, 'Error al insertar la institución');
     END AD_INSTITUCION;
-    
 
     -- Modificar Institución
     PROCEDURE MOD_INSTITUCION(
@@ -27,7 +20,9 @@ CREATE OR REPLACE PACKAGE BODY PC_INSTITUCION AS
     ) IS
     BEGIN
         UPDATE Instituciones
-        SET nombre = Xnombre, direccion = Xdireccion, tipo = Xtipo
+        SET nombre    = Xnombre,
+            direccion = Xdireccion,
+            tipo      = Xtipo
         WHERE codigo = Xcodigo;
         COMMIT;
     EXCEPTION
@@ -35,14 +30,15 @@ CREATE OR REPLACE PACKAGE BODY PC_INSTITUCION AS
             ROLLBACK;
             raise_application_error(-20202, 'Error al modificar la institución');
     END MOD_INSTITUCION;
-    
+
 
     -- Eliminar Institución
     PROCEDURE EL_INSTITUCION(
         Xcodigo IN NUMBER
     ) IS
     BEGIN
-        DELETE FROM Instituciones
+        DELETE
+        FROM Instituciones
         WHERE codigo = Xcodigo;
         COMMIT;
     EXCEPTION
@@ -50,7 +46,7 @@ CREATE OR REPLACE PACKAGE BODY PC_INSTITUCION AS
             ROLLBACK;
             raise_application_error(-20203, 'Error al eliminar la institución');
     END EL_INSTITUCION;
-    
+
 
     -- Consultar Institución
     FUNCTION CO_INSTITUCION(
@@ -59,7 +55,8 @@ CREATE OR REPLACE PACKAGE BODY PC_INSTITUCION AS
         InstitucionesCursor SYS_REFCURSOR;
     BEGIN
         OPEN InstitucionesCursor FOR
-            SELECT * FROM Instituciones
+            SELECT *
+            FROM Instituciones
             WHERE codigo = Xcodigo;
         RETURN InstitucionesCursor;
     END CO_INSTITUCION;
@@ -84,7 +81,7 @@ CREATE OR REPLACE PACKAGE BODY PC_ESTUDIANTE AS
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK;
-            raise_application_error(-20202, 'Error al insertar el estudiante');
+            raise_application_error(-20204, 'Error al insertar el estudiante');
     END AD_ESTUDIANTE;
 
     -- Modificar Estudiante
@@ -99,14 +96,18 @@ CREATE OR REPLACE PACKAGE BODY PC_ESTUDIANTE AS
     ) IS
     BEGIN
         UPDATE Estudiantes
-        SET nombre = Xnombre, correo = Xcorreo, contrasena = Xcontrasena,
-            programa = Xprograma, registro = Xregistro, codigoInstitucion = XcodigoInstitucion
+        SET nombre            = Xnombre,
+            correo            = Xcorreo,
+            contrasena        = Xcontrasena,
+            programa          = Xprograma,
+            registro          = Xregistro,
+            codigoInstitucion = XcodigoInstitucion
         WHERE usuario = Xusuario;
         COMMIT;
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK;
-            raise_application_error(-20203, 'Error al modificar el estudiante');
+            raise_application_error(-20205, 'Error al modificar el estudiante');
     END MOD_ESTUDIANTE;
 
     -- Eliminar Estudiante
@@ -114,13 +115,14 @@ CREATE OR REPLACE PACKAGE BODY PC_ESTUDIANTE AS
         Xusuario IN NUMBER
     ) IS
     BEGIN
-        DELETE FROM Estudiantes
+        DELETE
+        FROM Estudiantes
         WHERE usuario = Xusuario;
         COMMIT;
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK;
-            raise_application_error(-20204, 'Error al eliminar el estudiante');
+            raise_application_error(-20206, 'Error al eliminar el estudiante');
     END EL_ESTUDIANTE;
 
     -- Consultar Estudiante
@@ -130,7 +132,8 @@ CREATE OR REPLACE PACKAGE BODY PC_ESTUDIANTE AS
         EstudiantesCursor SYS_REFCURSOR;
     BEGIN
         OPEN EstudiantesCursor FOR
-            SELECT * FROM Estudiantes
+            SELECT *
+            FROM Estudiantes
             WHERE usuario = Xusuario;
         RETURN EstudiantesCursor;
     END CO_ESTUDIANTE;
@@ -153,7 +156,7 @@ CREATE OR REPLACE PACKAGE BODY PC_PREMIUM AS
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK;
-            raise_application_error(-20205, 'Error al insertar el cliente premium');
+            raise_application_error(-20207, 'Error al insertar el cliente premium');
     END AD_PREMIUM;
 
     -- Modificar Cliente Premium
@@ -166,14 +169,16 @@ CREATE OR REPLACE PACKAGE BODY PC_PREMIUM AS
     ) IS
     BEGIN
         UPDATE ClientesPremium
-        SET membresia = Xmembresia, fechaDeVencimiento = XfechaDeVencimiento,
-            telefono = Xtelefono, direccion = Xdireccion
+        SET membresia          = Xmembresia,
+            fechaDeVencimiento = XfechaDeVencimiento,
+            telefono           = Xtelefono,
+            direccion          = Xdireccion
         WHERE usuarioE = XusuarioE;
         COMMIT;
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK;
-            raise_application_error(-20206, 'Error al modificar el cliente premium');
+            raise_application_error(-20208, 'Error al modificar el cliente premium');
     END MOD_PREMIUM;
 
     -- Eliminar Cliente Premium
@@ -181,13 +186,14 @@ CREATE OR REPLACE PACKAGE BODY PC_PREMIUM AS
         XusuarioE IN NUMBER
     ) IS
     BEGIN
-        DELETE FROM ClientesPremium
+        DELETE
+        FROM ClientesPremium
         WHERE usuarioE = XusuarioE;
         COMMIT;
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK;
-            raise_application_error(-20207, 'Error al eliminar el cliente premium');
+            raise_application_error(-20209, 'Error al eliminar el cliente premium');
     END EL_PREMIUM;
 
     -- Consultar Cliente Premium
@@ -197,7 +203,8 @@ CREATE OR REPLACE PACKAGE BODY PC_PREMIUM AS
         ClientesPremiumCursor SYS_REFCURSOR;
     BEGIN
         OPEN ClientesPremiumCursor FOR
-            SELECT * FROM ClientesPremium
+            SELECT *
+            FROM ClientesPremium
             WHERE usuarioE = XusuarioE;
         RETURN ClientesPremiumCursor;
     END CO_PREMIUM;
@@ -205,10 +212,7 @@ END PC_PREMIUM;
 /
 -- Crear Cliente Gratuito
 CREATE OR REPLACE PACKAGE BODY PC_GRATUITO AS
-    PROCEDURE AD_GRATUITO(
-        XusuarioE IN NUMBER,
-        XcorreoTemporal IN VARCHAR2
-    ) IS
+    PROCEDURE AD_GRATUITO(XusuarioE IN NUMBER, XcorreoTemporal IN VARCHAR2) IS
     BEGIN
         INSERT INTO ClientesGratuitos (usuarioE, correoTemporal)
         VALUES (XusuarioE, XcorreoTemporal);
@@ -216,34 +220,27 @@ CREATE OR REPLACE PACKAGE BODY PC_GRATUITO AS
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK;
-            raise_application_error(-20208, 'Error al insertar el cliente gratuito');
+            raise_application_error(-20210, 'Error al insertar el cliente gratuito');
     END AD_GRATUITO;
 
-    -- Modificar Cliente Gratuito (En caso de ser necesario)
-    -- No se proporciona la modificación porque no hay campos actualizables.
-
-    -- Eliminar Cliente Gratuito
-    PROCEDURE EL_GRATUITO(
-        XusuarioE IN NUMBER
-    ) IS
+    PROCEDURE EL_GRATUITO(XusuarioE IN NUMBER) IS
     BEGIN
-        DELETE FROM ClientesGratuitos
+        DELETE
+        FROM ClientesGratuitos
         WHERE usuarioE = XusuarioE;
         COMMIT;
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK;
-            raise_application_error(-20209, 'Error al eliminar el cliente gratuito');
+            raise_application_error(-20211, 'Error al eliminar el cliente gratuito');
     END EL_GRATUITO;
 
-    -- Consultar Cliente Gratuito
-    FUNCTION CO_GRATUITO(
-        XusuarioE IN NUMBER
-    ) RETURN SYS_REFCURSOR IS
+    FUNCTION CO_GRATUITO(XusuarioE IN NUMBER) RETURN SYS_REFCURSOR IS
         ClientesGratuitosCursor SYS_REFCURSOR;
     BEGIN
         OPEN ClientesGratuitosCursor FOR
-            SELECT * FROM ClientesGratuitos
+            SELECT *
+            FROM ClientesGratuitos
             WHERE usuarioE = XusuarioE;
         RETURN ClientesGratuitosCursor;
     END CO_GRATUITO;
@@ -268,7 +265,7 @@ CREATE OR REPLACE PACKAGE BODY PC_CURSO AS
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK;
-            raise_application_error(-20301, 'Error al insertar el curso');
+            raise_application_error(-20212, 'Error al insertar el curso');
     END AD_CURSO;
 
     -- Modificar Curso
@@ -283,28 +280,33 @@ CREATE OR REPLACE PACKAGE BODY PC_CURSO AS
     ) IS
     BEGIN
         UPDATE Cursos
-        SET nombre = Xnombre, listaDeMatriculados = XlistaDeMatriculados, duracion = Xduracion,
-            supercursos = Xsupercursos, codigoInstitucion = XcodigoInstitucion, nidProfesor = XnidProfesor
+        SET nombre              = Xnombre,
+            listaDeMatriculados = XlistaDeMatriculados,
+            duracion            = Xduracion,
+            supercursos         = Xsupercursos,
+            codigoInstitucion   = XcodigoInstitucion,
+            nidProfesor         = XnidProfesor
         WHERE codigo = Xcodigo;
         COMMIT;
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK;
-            raise_application_error(-20302, 'Error al modificar el curso');
+            raise_application_error(-20213, 'Error al modificar el curso');
     END MOD_CURSO;
-    
+
     -- Eliminar Curso
     PROCEDURE EL_CURSO(
         Xcodigo IN NUMBER
     ) IS
     BEGIN
-        DELETE FROM Cursos
+        DELETE
+        FROM Cursos
         WHERE codigo = Xcodigo;
         COMMIT;
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK;
-            raise_application_error(-20303, 'Error al eliminar el curso');
+            raise_application_error(-20214, 'Error al eliminar el curso');
     END EL_CURSO;
 
     -- Consultar Curso
@@ -314,7 +316,8 @@ CREATE OR REPLACE PACKAGE BODY PC_CURSO AS
         CursosCursor SYS_REFCURSOR;
     BEGIN
         OPEN CursosCursor FOR
-            SELECT * FROM Cursos
+            SELECT *
+            FROM Cursos
             WHERE codigo = Xcodigo;
         RETURN CursosCursor;
     END CO_CURSO;
@@ -323,49 +326,79 @@ END PC_CURSO;
 
 -- Agregar Estudiante a Curso
 CREATE OR REPLACE PACKAGE BODY PC_ESTCURSO AS
-    PROCEDURE AD_ESTCURSO(
-        Xusuario IN NUMBER,
-        XcodigoCurso IN NUMBER
-    ) IS
+    PROCEDURE AD_ESTCURSO(Xusuario IN NUMBER, XcodigoCurso IN NUMBER) IS
     BEGIN
-        INSERT INTO EstudiantesCursos (usuario, codigoCurso)
+        INSERT INTO ESTUDIANTESCURSOS(usuario, codigoCurso)
         VALUES (Xusuario, XcodigoCurso);
         COMMIT;
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK;
-            raise_application_error(-20304, 'Error al agregar estudiante al curso');
+            raise_application_error(-20215, 'Error al agregar estudiante al curso');
     END AD_ESTCURSO;
-    
 
-    -- Quitar Estudiante de Curso
-    PROCEDURE EL_ESTCURSO(
-        Xusuario IN NUMBER,
-        XcodigoCurso IN NUMBER
-    ) IS
+    PROCEDURE EL_ESTCURSO(Xusuario IN NUMBER) IS
     BEGIN
-        DELETE FROM EstudiantesCursos
-        WHERE usuario = Xusuario AND codigoCurso = XcodigoCurso;
+        DELETE
+        FROM EstudiantesCursos
+        WHERE usuario = Xusuario;
         COMMIT;
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK;
-            raise_application_error(-20305, 'Error al quitar estudiante del curso');
+            raise_application_error(-20216, 'Error al quitar estudiante del curso');
     END EL_ESTCURSO;
-    
-    -- Consultar Estudiantes de un Curso
-    FUNCTION CO_ESTCURSO(
-        XcodigoCurso IN NUMBER
-    ) RETURN SYS_REFCURSOR IS
+
+    FUNCTION CO_ESTCURSO(Xusuario IN NUMBER) RETURN SYS_REFCURSOR IS
         EstudiantesCursoCursor SYS_REFCURSOR;
     BEGIN
         OPEN EstudiantesCursoCursor FOR
-            SELECT usuario FROM EstudiantesCursos
-            WHERE codigoCurso = XcodigoCurso;
+            SELECT usuario
+            FROM EstudiantesCursos
+            WHERE codigoCurso = Xusuario;
         RETURN EstudiantesCursoCursor;
     END CO_ESTCURSO;
 END PC_ESTCURSO;
 /
+
+-- Agregar Estudiante a Curso
+CREATE OR REPLACE PACKAGE BODY PC_ESTCURSO AS
+    PROCEDURE AD_ESTCURSO(Xusuario IN NUMBER, XcodigoCurso IN NUMBER) IS
+    BEGIN
+        INSERT INTO ESTUDIANTESCURSOS(usuario, codigoCurso)
+        VALUES (Xusuario, XcodigoCurso);
+        COMMIT;
+    EXCEPTION
+        WHEN OTHERS THEN
+            ROLLBACK;
+            raise_application_error(-20215, 'Error al agregar estudiante al curso');
+    END AD_ESTCURSO;
+
+    PROCEDURE EL_ESTCURSO(Xusuario IN NUMBER) IS
+    BEGIN
+        DELETE
+        FROM EstudiantesCursos
+        WHERE usuario = Xusuario;
+        COMMIT;
+    EXCEPTION
+        WHEN OTHERS THEN
+            ROLLBACK;
+            raise_application_error(-20216, 'Error al quitar estudiante del curso');
+    END EL_ESTCURSO;
+
+    FUNCTION CO_ESTCURSO(Xusuario IN NUMBER) RETURN SYS_REFCURSOR IS
+        EstudiantesCursoCursor SYS_REFCURSOR;
+    BEGIN
+        OPEN EstudiantesCursoCursor FOR
+            SELECT usuario
+            FROM EstudiantesCursos
+            WHERE codigoCurso = Xusuario;
+        RETURN EstudiantesCursoCursor;
+    END CO_ESTCURSO;
+END PC_ESTCURSO;
+/
+
+
 -- Crear Profesor
 CREATE OR REPLACE PACKAGE BODY PC_PROFESOR AS
     PROCEDURE AD_PROFESOR(
@@ -381,7 +414,7 @@ CREATE OR REPLACE PACKAGE BODY PC_PROFESOR AS
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK;
-            raise_application_error(-20306, 'Error al insertar el profesor');
+            raise_application_error(-20217, 'Error al insertar el profesor');
     END AD_PROFESOR;
 
     -- Modificar Profesor
@@ -393,27 +426,30 @@ CREATE OR REPLACE PACKAGE BODY PC_PROFESOR AS
     ) IS
     BEGIN
         UPDATE Profesores
-        SET nombre = Xnombre, telefono = Xtelefono, profesion = Xprofesion
+        SET nombre    = Xnombre,
+            telefono  = Xtelefono,
+            profesion = Xprofesion
         WHERE nid = Xnid;
         COMMIT;
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK;
-            raise_application_error(-20307, 'Error al modificar el profesor');
+            raise_application_error(-20218, 'Error al modificar el profesor');
     END MOD_PROFESOR;
-    
+
     -- Eliminar Profesor
     PROCEDURE EL_PROFESOR(
         Xnid IN NUMBER
     ) IS
     BEGIN
-        DELETE FROM Profesores
+        DELETE
+        FROM Profesores
         WHERE nid = Xnid;
         COMMIT;
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK;
-            raise_application_error(-20308, 'Error al eliminar el profesor');
+            raise_application_error(-20219, 'Error al eliminar el profesor');
     END EL_PROFESOR;
 
     -- Consultar Profesor
@@ -423,7 +459,8 @@ CREATE OR REPLACE PACKAGE BODY PC_PROFESOR AS
         ProfesorCursor SYS_REFCURSOR;
     BEGIN
         OPEN ProfesorCursor FOR
-            SELECT * FROM Profesores
+            SELECT *
+            FROM Profesores
             WHERE nid = Xnid;
         RETURN ProfesorCursor;
     END CO_PROFESOR;
@@ -447,7 +484,7 @@ CREATE OR REPLACE PACKAGE BODY PC_RECURSO AS
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK;
-            raise_application_error(-20309, 'Error al agregar recurso adicional');
+            raise_application_error(-20220, 'Error al agregar recurso adicional');
     END AD_RECURSO;
 
 
@@ -462,14 +499,17 @@ CREATE OR REPLACE PACKAGE BODY PC_RECURSO AS
     ) IS
     BEGIN
         UPDATE RecursosAdicionales
-        SET tipo = Xtipo, fechaPublicacion = XfechaPublicacion, tema = Xtema,
-            notasDeClase = XnotasDeClase, codigoCurso = XcodigoCursos
+        SET tipo             = Xtipo,
+            fechaPublicacion = XfechaPublicacion,
+            tema             = Xtema,
+            notasDeClase     = XnotasDeClase,
+            codigoCurso      = XcodigoCursos
         WHERE idRecursos = XidRecursos;
         COMMIT;
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK;
-            raise_application_error(-20401, 'Error al modificar recurso adicional');
+            raise_application_error(-20221, 'Error al modificar recurso adicional');
     END MOD_RECURSO;
 
     -- Eliminar Recurso Adicional
@@ -477,13 +517,14 @@ CREATE OR REPLACE PACKAGE BODY PC_RECURSO AS
         XidRecursos IN NUMBER
     ) IS
     BEGIN
-        DELETE FROM RecursosAdicionales
+        DELETE
+        FROM RecursosAdicionales
         WHERE idRecursos = XidRecursos;
         COMMIT;
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK;
-            raise_application_error(-20402, 'Error al eliminar recurso adicional');
+            raise_application_error(-20222, 'Error al eliminar recurso adicional');
     END EL_RECURSO;
 
 
@@ -494,7 +535,8 @@ CREATE OR REPLACE PACKAGE BODY PC_RECURSO AS
         RecursoAdicionalCursor SYS_REFCURSOR;
     BEGIN
         OPEN RecursoAdicionalCursor FOR
-            SELECT * FROM RecursosAdicionales
+            SELECT *
+            FROM RecursosAdicionales
             WHERE idRecursos = XidRecursos;
         RETURN RecursoAdicionalCursor;
     END CO_RECURSO;
@@ -519,9 +561,9 @@ CREATE OR REPLACE PACKAGE BODY PC_TAREA AS
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK;
-            raise_application_error(-20403, 'Error al agregar la tarea');
+            raise_application_error(-20223, 'Error al agregar la tarea');
     END AD_TAREA;
-    
+
     -- Modificar Tarea
     PROCEDURE MOD_TAREA(
         XidTarea IN NUMBER,
@@ -534,14 +576,18 @@ CREATE OR REPLACE PACKAGE BODY PC_TAREA AS
     ) IS
     BEGIN
         UPDATE Tareas
-        SET nombre = Xnombre, descripcion = Xdescripcion, fechaDeAsignacion = XfechaDeAsignacion,
-            fechaDeVencimiento = XfechaDeVencimiento, estado = Xestado, codigoCurso = XcodigoCurso
+        SET nombre             = Xnombre,
+            descripcion        = Xdescripcion,
+            fechaDeAsignacion  = XfechaDeAsignacion,
+            fechaDeVencimiento = XfechaDeVencimiento,
+            estado             = Xestado,
+            codigoCurso        = XcodigoCurso
         WHERE idTarea = XidTarea;
         COMMIT;
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK;
-            raise_application_error(-20404, 'Error al modificar la tarea');
+            raise_application_error(-20224, 'Error al modificar la tarea');
     END MOD_TAREA;
 
     -- Eliminar Tarea
@@ -549,13 +595,14 @@ CREATE OR REPLACE PACKAGE BODY PC_TAREA AS
         XidTarea IN NUMBER
     ) IS
     BEGIN
-        DELETE FROM Tareas
+        DELETE
+        FROM Tareas
         WHERE idTarea = XidTarea;
         COMMIT;
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK;
-            raise_application_error(-20405, 'Error al eliminar la tarea');
+            raise_application_error(-20225, 'Error al eliminar la tarea');
     END EL_TAREA;
 
     -- Consultar Tarea
@@ -565,7 +612,8 @@ CREATE OR REPLACE PACKAGE BODY PC_TAREA AS
         TareaCursor SYS_REFCURSOR;
     BEGIN
         OPEN TareaCursor FOR
-            SELECT * FROM Tareas
+            SELECT *
+            FROM Tareas
             WHERE idTarea = XidTarea;
         RETURN TareaCursor;
     END CO_TAREA;
@@ -573,14 +621,8 @@ END PC_TAREA;
 /
 
 -- Agregar Calificación
-CREATE OR REPLACE PACKAGE BODY  PC_CALIFICACION AS
-    PROCEDURE AD_CALIFICACION(
-        XidTarea IN NUMBER,
-        Xpuntaje IN NUMBER,
-        Xfecha IN DATE,
-        Xcomentario IN VARCHAR2,
-        Xestudiante IN NUMBER
-    ) IS
+CREATE OR REPLACE PACKAGE BODY PC_CALIFICACION AS
+    PROCEDURE AD_CALIFICACION(XidTarea IN NUMBER,Xpuntaje IN NUMBER,Xfecha IN DATE,Xcomentario IN VARCHAR2,Xestudiante IN NUMBER) IS
     BEGIN
         INSERT INTO calificaciones (idTarea, puntaje, fecha, comentario, estudiante)
         VALUES (XidTarea, Xpuntaje, Xfecha, Xcomentario, Xestudiante);
@@ -588,27 +630,26 @@ CREATE OR REPLACE PACKAGE BODY  PC_CALIFICACION AS
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK;
-            raise_application_error(-20406, 'Error al agregar la calificación');
+            raise_application_error(-20226, 'Error al agregar la calificación');
     END AD_CALIFICACION;
-    
 
-    -- Modificar Calificación
     PROCEDURE MOD_CALIFICACION(
         XidTarea IN NUMBER,
         Xpuntaje IN NUMBER,
         Xfecha IN DATE,
-        Xcomentario IN VARCHAR2,
-        Xestudiante IN NUMBER
+        Xcomentario IN VARCHAR2
     ) IS
     BEGIN
         UPDATE calificaciones
-        SET puntaje = Xpuntaje, fecha = Xfecha, comentario = Xcomentario
-        WHERE idTarea = XidTarea AND estudiante = Xestudiante;
+        SET puntaje    = Xpuntaje,
+            fecha      = Xfecha,
+            comentario = Xcomentario
+        WHERE idTarea = XidTarea;
         COMMIT;
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK;
-            raise_application_error(-20407, 'Error al modificar la calificación');
+            raise_application_error(-20227, 'Error al modificar la calificación');
     END MOD_CALIFICACION;
 
     -- Eliminar Calificación
@@ -617,15 +658,17 @@ CREATE OR REPLACE PACKAGE BODY  PC_CALIFICACION AS
         Xestudiante IN NUMBER
     ) IS
     BEGIN
-        DELETE FROM calificaciones
-        WHERE idTarea = XidTarea AND estudiante = Xestudiante;
+        DELETE
+        FROM calificaciones
+        WHERE idTarea = XidTarea
+          AND estudiante = Xestudiante;
         COMMIT;
     EXCEPTION
         WHEN OTHERS THEN
             ROLLBACK;
-            raise_application_error(-20408, 'Error al eliminar la calificación');
+            raise_application_error(-20228, 'Error al eliminar la calificación');
     END EL_CALIFICACION;
-    
+
     -- Consultar Calificación
     FUNCTION CO_CALIFICACION(
         XidTarea IN NUMBER,
@@ -634,8 +677,10 @@ CREATE OR REPLACE PACKAGE BODY  PC_CALIFICACION AS
         CalificacionCursor SYS_REFCURSOR;
     BEGIN
         OPEN CalificacionCursor FOR
-            SELECT * FROM calificaciones
-            WHERE idTarea = XidTarea AND estudiante = Xestudiante;
+            SELECT *
+            FROM calificaciones
+            WHERE idTarea = XidTarea
+              AND estudiante = Xestudiante;
         RETURN CalificacionCursor;
     END CO_CALIFICACION;
 END PC_CALIFICACION;

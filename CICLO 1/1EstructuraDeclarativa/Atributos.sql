@@ -8,6 +8,7 @@ ALTER TABLE ClientesGratuitos ADD CONSTRAINT Ck_cliente_correo CHECK(CORREOTEMPO
 --ALTER TABLE ClientesGratuitos DROP CONSTRAINT Ck_cliente_correo;
 ALTER TABLE RecursosAdicionales ADD CONSTRAINT Ck_recursos_tipo CHECK(tipo IN ('L','A','V'));
 ALTER TABLE Tareas ADD CONSTRAINT Ck_TareasFechas CHECK (FECHADEASIGNACION < FECHADEVENCIMIENTO);
+
 /*---------------------------------------- PRIMARIAS-------------------------*/
 
 ALTER TABLE Instituciones
@@ -106,5 +107,3 @@ REFERENCES Cursos (codigo);
 ALTER TABLE Instituciones
 ADD CONSTRAINT UK_Instituciones_nombre
 UNIQUE(nombre);
-
-

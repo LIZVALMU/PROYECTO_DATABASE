@@ -35,6 +35,12 @@ WHERE ra.idRecursos IS NULL;
 --podrían beneficiarse de participar en actividades extracurriculares.
 
 
+INSERT INTO ESTUDIANTES(USUARIO, NOMBRE, CORREO, CONTRASENA, PROGRAMA, REGISTRO, CODIGOINSTITUCION)
+VALUES (1234, 'Juan', 'jUAN123@GMAIL.COM', '12345', 'INGENIERIA', TO_DATE('2024-05-30', 'YYYY-MM-DD'), 1234);
+
+INSERT INTO CLIENTESPREMIUM(USUARIOE, MEMBRESIA, FECHADEVENCIMIENTO, TELEFONO, DIRECCION)
+VALUES(1234, 'P', TO_DATE('2023-05-30', 'YYYY-MM-DD'), '1234567890', 'CALLE 123');
+
 SELECT *
 FROM ClientesPremium
 WHERE fechaDeVencimiento < ADD_MONTHS(SYSDATE, -6);
@@ -42,4 +48,6 @@ WHERE fechaDeVencimiento < ADD_MONTHS(SYSDATE, -6);
 --cliente para fomentar las renovaciones o abordar cualquier problema que 
 --conduzca a la no renovación.
 
+SELECT COUNT(*) FROM ClientesPremium;
+--La cantidad de clientes pagos que hay de la tabla ClientesPremium.
 

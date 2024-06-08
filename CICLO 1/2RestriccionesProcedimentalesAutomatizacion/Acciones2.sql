@@ -26,8 +26,8 @@ FOREIGN KEY (usuario)
 REFERENCES Estudiantes (usuario)
 ON DELETE CASCADE;
 --Necesita las PK y UK
---Si un estudiante decide cancelar su cuenta y eliminar su registro, 
---también queremos que se eliminen automáticamente todas las inscripciones 
+--Si un estudiante decide cancelar su cuenta y eliminar su registro,
+--también queremos que se eliminen automáticamente todas las inscripciones
 --del estudiante en los cursos.
 
 --Mantener Cursos_____________________________________________________________
@@ -42,9 +42,9 @@ ADD CONSTRAINT FK_Curso_Profesores
 FOREIGN KEY (nidProfesor)
 REFERENCES Profesores (nid)
 ON DELETE SET NULL;
---Supongamos que un profesor se retira o deja de enseñar en una institución. 
---Queremos mantener la integridad referencial, pero no queremos eliminar 
---todos los cursos asociados con ese profesor. En cambio, simplemente queremos 
+--Supongamos que un profesor se retira o deja de enseñar en una institución.
+--Queremos mantener la integridad referencial, pero no queremos eliminar
+--todos los cursos asociados con ese profesor. En cambio, simplemente queremos
 --establecer el campo nidProfesor en NULL para esos cursos.
 
 
@@ -55,8 +55,8 @@ ADD CONSTRAINT FK_Curso_Instituciones
 FOREIGN KEY (codigoInstitucion)
 REFERENCES Instituciones (codigo)
 ON DELETE SET NULL;
---esta acción de referencia asegura que los cursos mantengan una referencia 
---válida a la institución, pero no se eliminen automáticamente si la 
+--esta acción de referencia asegura que los cursos mantengan una referencia
+--válida a la institución, pero no se eliminen automáticamente si la
 --institución se elimina.
 
 --Mantener RecursosAdicionales________________________________________________
@@ -71,23 +71,27 @@ ADD CONSTRAINT FK_RecursosAdicionales_Curso
 FOREIGN KEY (codigoCurso)
 REFERENCES Cursos (codigo)
 ON DELETE CASCADE;
---esta acción de referencia asegura que los recursos adicionales estén siempre 
---relacionados con cursos existentes y se mantenga la integridad referencial 
+--esta acción de referencia asegura que los recursos adicionales estén siempre
+--relacionados con cursos existentes y se mantenga la integridad referencial
 --en la base de datos.
 
 -- Sección AccionesOK
 -- Insertar una institución
 INSERT INTO Instituciones (codigo, nombre, direccion, tipo)
-VALUES (01, 'Instituto ABC', 'Ciudad XYZ', 'AB');
+VALUES (2125, 'Institucion', 'Ciudad XYZ', 'E');
 
 -- Insertar un profesor
 INSERT INTO Profesores (nid, nombre, telefono, profesion)
-VALUES (001, 'Juan Pérez',3212126478, 'Matemático');
+VALUES (001, 'Juan Pérez',321212647, 'Matemático');
 
 -- Insertar un curso
 INSERT INTO Cursos (codigo, nombre, duracion, codigoInstitucion, nidProfesor)
-VALUES (001, 'Matemáticas', 1240 ,005, 157);
+VALUES (001, 'Matemáticas', 1240 ,2125, 79951872);
 
 -- Insertar recursos adicionales
 INSERT INTO RecursosAdicionales (idRecursos, tipo,fechaPublicacion, tema, notasDeClase, codigoCurso)
-VALUES (001, 'AB','12/04/2024', 'Matemáticas','Material de estudio',003);
+VALUES (001, 'A','12/04/2024', 'Matemáticas','Material de estudio',001);
+
+delete from Cursos where codigo = 001;
+
+select * from RecursosAdicionales;
