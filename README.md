@@ -15,14 +15,14 @@
 
 **TimeWise Student** es una base de datos relacional diseñada para gestionar una organización estudiantil que prioriza la administración eficiente del tiempo y la calidad del aprendizaje de los estudiantes. El sistema permite:
 
-- 🎓 Gestión de estudiantes, instituciones y profesores
-- 📖 Administración de cursos y recursos académicos
-- ⏰ Control de horarios y actividades extracurriculares
-- 💳 Manejo de membresías (Premium y Gratuitas)
-- 📊 Seguimiento de calificaciones y tareas
-- 🤝 Organización de aprendizajes grupales
-- 🔔 Sistema de recordatorios y seguimientos
-- 💰 Gestión de facturación y pagos
+- Gestión de estudiantes, instituciones y profesores
+- Administración de cursos y recursos académicos
+- Control de horarios y actividades extracurriculares
+- Manejo de membresías (Premium y Gratuitas)
+- Seguimiento de calificaciones y tareas
+- Organización de aprendizajes grupales
+- Sistema de recordatorios y seguimientos
+- Gestión de facturación y pagos
 
 ---
 
